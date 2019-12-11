@@ -2,12 +2,12 @@
 resource "google_compute_instance" "helloworld" {
   name         = "estagiario"
   machine_type = "f1-micro"
-  zone         = "var.region"
+  zone         = var.zone
 
   # Define a Imagem da VM
   boot_disk {
     initialize_params {
-      image = "var.image"
+      image = var.image
     }
   }
 
@@ -21,12 +21,12 @@ resource "google_compute_instance" "helloworld" {
 
 # Cria SQL Gerenciado com Engine MySQL
 resource "google_sql_database_instance" "helloworld" {
-  name             = "var.dbname"
+  name             = var.dbname
   database_version = "MYSQL_5_7"
   region           = "us-central1"
 
   settings {
-    tier = "var.zonedb"
+    tier = var.zonedb
   }
 }
 
