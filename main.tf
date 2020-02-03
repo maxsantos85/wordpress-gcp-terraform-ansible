@@ -17,7 +17,19 @@ resource "google_compute_instance" "helloworld" {
     access_config {
     }
   }
+
+  # Cria o inventário do Ansible
+  provisioner "local-exec" {
+    command = "echo ${google_compute_instance.helloworld.network_interface.0.access_config.0.nat_ip} > ansible/inventory"
+  }
+
+  # Executa a playbook na máquina provisionada
+  provisioner "local-exec" {
+    command = "ansible-playbook -i ansible/inventory --private-key ~/.ssh/id_rsa ansible/playbook.yml"
+  }
+
 }
+
 
 # Cria SQL Gerenciado com Engine MySQL
 resource "google_sql_database_instance" "helloworld" {

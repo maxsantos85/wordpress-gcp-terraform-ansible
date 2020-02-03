@@ -1,0 +1,12 @@
+---
+# PLAY PARA CONFIGURACAO A INSTANCIA GCP
+- hosts: all
+  name: Configurando instancia GCP
+  remote_user: gabydias
+  become: yes
+  vars_files:
+          - vars.yml
+  tasks:
+    - name: Ajustando Timezone
+      timezone:
+        name: America/Sao_Paulo
